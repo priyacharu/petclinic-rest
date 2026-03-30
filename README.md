@@ -221,6 +221,32 @@ dotnet test tests/PetClinicRest.Tests/PetClinicRest.Tests.csproj
 
 These steps will install the testing dependencies and execute the test project.
 
+## Troubleshooting
+
+If you encounter an error like:
+
+```
+Unhandled exception. System.IO.FileLoadException:
+Could not load file or assembly
+'/usr/local/share/dotnet/sdk/9.0.305/vstest.console.dll'.
+Access is denied.
+
+error MSB6006: "dotnet" exited with code 134
+```
+
+it is often caused by incorrect ownership or permissions on the system .NET SDK directory. Fix this by running:
+
+```bash
+sudo chown -R $(whoami) /usr/local/share/dotnet
+sudo chmod -R u+rwX /usr/local/share/dotnet
+```
+
+Then retry running the tests:
+
+```bash
+dotnet test tests/PetClinicRest.Tests/PetClinicRest.Tests.csproj
+```
+
 ## Technologies Used
 
 - **ASP.NET Core 8.0**: Web framework
