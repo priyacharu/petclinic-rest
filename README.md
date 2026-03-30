@@ -200,6 +200,27 @@ This will automatically rebuild and restart the application when code changes ar
 dotnet publish -c Release
 ```
 
+### Running Tests
+
+From the test project folder `tests/PetClinicRest.Tests` run the following to add recommended packages:
+
+```bash
+cd tests/PetClinicRest.Tests
+dotnet add package xunit
+dotnet add package xunit.runner.visualstudio
+dotnet add package FluentAssertions
+dotnet add package Microsoft.NET.Test.Sdk
+```
+
+Then from the repository root restore and run the tests:
+
+```bash
+dotnet restore
+dotnet test tests/PetClinicRest.Tests/PetClinicRest.Tests.csproj
+```
+
+These steps will install the testing dependencies and execute the test project.
+
 ## Technologies Used
 
 - **ASP.NET Core 8.0**: Web framework

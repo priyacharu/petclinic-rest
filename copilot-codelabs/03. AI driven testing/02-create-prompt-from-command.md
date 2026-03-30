@@ -1,10 +1,10 @@
 # Exercise 2: Generate a custom test-generation prompt with `/create-prompt`
 
 ## Objective
-Create a reusable custom prompt using the `/create-prompt` command that generates unit tests for selected functions or files.
+Create a reusable custom prompt `/generate-unit-test` using the `/create-prompt` command that generates unit tests for selected functions or files.
 
 ## Why this matters
-Using `/create-prompt` helps standardize AI test generation in your workflow and lets developers experiment with prompt style, coverage, and scenario depth.
+Using `/generate-unit-test` helps standardize AI test generation workflow and lets developers experiment with prompt style, coverage, and scenario depth.
 
 ## What you will build
 - A new prompt definition in your local workspace
