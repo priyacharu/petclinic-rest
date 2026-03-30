@@ -8,7 +8,7 @@ Custom instruction files help standardize AI test generation across teams, makin
 
 ## What you will build
 - A new custom instruction markdown file stored at: `.github/instructions/testing.instructions.md`
-- An exercise walkthrough that encodes the **Tester Mode Guidelines** below
+- An exercise walkthrough that encodes the **Testing Guidelines** below
 
 ## Exercise steps
 
@@ -105,6 +105,13 @@ When reviewing tests, check:
 - Use meaningful assertions
 - Document complex test scenarios
 ```
+
+4. Verify Copilot references the repo-level testing instructions
+
+   - Open the Copilot chat or assistant integrated in your editor.
+   - Ask the question: "what are the testing guidelines for this project"
+   - Confirm the assistant's response includes key headings or content from the file you created, for example: "Testing Philosophy", "Test Writing Guidelines", "Test Quality", or example test snippets.
+   - If the assistant does not reference the repo-level instructions, ensure the file `.github/instructions/testing.instructions.md` exists and contains the guidance, then retry the query.
 
 ## Validation
 - Confirm file exists and content is correct
