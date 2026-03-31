@@ -12,7 +12,7 @@
 - Organize the commits by type. Analyze the files and create separate commits.
 - **feat**: New feature or functionality
 - **fix**: Bug fix
-- **docs**: Documentation changes only (README, JavaDoc, comments)
+- **docs**: Documentation changes only (README, XML documentation, comments)
 - **refactor**: Code refactoring without changing functionality
 - **test**: Adding or updating tests
 - **chore**: Maintenance tasks (dependencies, build config, CI/CD)
@@ -157,6 +157,7 @@ feat: added stuff
 ```
 
 ### Commit Messages for PR Auto-Generation
+
 **To maximize CoPilot ability to auto-fill PR templates, follow these guidelines:**
 
 **1. Use Semantic Commit Types:**
@@ -205,3 +206,113 @@ Closes #123
 - Changes: "Add pagination to owners endpoint", "Add query parameters"
 - Description: Summary from commit body
 - Related Issues: "Closes #123"
+
+## Pre-Commit Guardrails
+
+### Mandatory Checks Before Committing
+
+**Code Compilation:**
+- ✅ Code must compile without errors (`dotnet build`)
+- ✅ All imports must resolve correctly
+- ✅ No syntax errors or missing dependencies
+- ✅ Build must succeed before committing
+
+**Test Execution:**
+- ✅ All existing tests must pass (`dotnet test`)
+- ✅ New features must include corresponding tests
+- ✅ Bug fixes must include regression tests
+- ✅ Test coverage should not decrease significantly
+- ✅ Integration tests must pass if modified
+
+**How to Verify Test Execution:**
+1. **Run all tests before committing:**
+   ```bash
+   dotnet test
+   ```
+   - Verify exit code is 0 (success)
+   - Check for any test failures in output
+
+2. **Verify new features have tests:**
+   - For each new class, check for corresponding test file
+   - Test files should be in `tests/` mirroring `src/` structure
+   - Example: `OwnerService.cs` → `OwnerServiceTests.cs`
+
+3. **Check test coverage (optional):**
+   ```bash
+   dotnet tool install -g dotnet-reportgenerator-globaltool
+   reportgenerator -reports:"**/coverage.cobertura.xml" -targetdir:coveragereport -reporttypes:Html
+   ```
+   - View coverage report: `coveragereport/index.html`
+   - Verify coverage meets project standards (typically 70%+)
+
+
+**Code Quality:**
+- ✅ Code must follow project style guidelines
+- ✅ No obvious code smells (long methods, deep nesting, etc.)
+- ✅ No unused imports or dead code
+- ✅ All compiler warnings should be addressed (or documented why not)
+- ✅ Code must be properly formatted (consistent indentation, spacing)
+
+**Security Checks:**
+- ✅ No hardcoded credentials, API keys, or secrets
+- ✅ No sensitive data in code or comments
+- ✅ Input validation implemented where needed
+- ✅ SQL injection prevention (parameterized queries)
+- ✅ No exposed internal error details in production code
+
+**Documentation:**
+- ✅ Public methods have XML documentation comments
+- ✅ Complex logic has inline comments explaining "why"
+- ✅ README updated if adding new features or changing setup
+- ✅ OpenAPI spec updated if API changes
+- ✅ Breaking changes documented in commit message
+
+**File Checks:**
+- ✅ No temporary files or build artifacts committed
+- ✅ No large binary files (use Git LFS if needed)
+- ✅ No IDE-specific files (.idea/, .vscode/, *.iml) unless project-specific
+- ✅ .gitignore properly configured
+- ✅ File sizes are reasonable (< 1MB for source files)
+
+**Commit Message Validation:**
+- ✅ Commit message follows semantic commit format
+- ✅ Subject line is clear and descriptive
+- ✅ Scope is appropriate for the changes
+- ✅ Breaking changes are properly marked
+- ✅ Issue references are included when applicable
+
+**Build Verification:**
+- ✅ Full build succeeds (`dotnet build` or equivalent)
+- ✅ No dependency conflicts
+- ✅ Application starts successfully (if applicable)
+- ✅ No configuration errors
+
+### Pre-Commit Checklist
+
+Before committing, verify:
+1. [ ] Code compiles without errors
+2. [ ] All tests pass (unit + integration)
+3. [ ] New code has tests
+4. [ ] Code follows style guidelines
+5. [ ] No security issues (secrets, vulnerabilities)
+6. [ ] Documentation is updated
+7. [ ] No temporary/debug code
+8. [ ] Commit message follows format
+9. [ ] Build succeeds completely
+10. [ ] Changes are logically grouped
+
+
+### When to Bypass Guardrails
+
+**Only bypass guardrails in exceptional cases:**
+- ⚠️ WIP commits (use `[WIP]` prefix and explain why)
+- ⚠️ Emergency hotfixes (document in commit message)
+- ⚠️ Experimental branches (clearly marked)
+- ⚠️ Documentation-only changes (may skip tests)
+
+**Never bypass for:**
+- ❌ Production code commits
+- ❌ Main/master branch commits
+- ❌ PR-ready commits
+- ❌ Code that breaks the build
+

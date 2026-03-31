@@ -12,6 +12,7 @@ Verify and understand the Git Commit Standards defined in `.github/copilot-instr
 - When to use different commit types (feat, fix, docs, etc.)
 - How to use scopes effectively
 - How to structure commit messages properly
+- Pre-commit guardrails and verification steps
 
 ## Quick Start
 
@@ -103,6 +104,17 @@ Open `.github/copilot-instructions.md` in workspace root and review the "Git Com
 - `test` - Test-related changes
 - `owner`, `pet`, `visit` - Domain-specific changes
 
+### Review the Pre-Commit Guardrails
+
+Review the "Pre-Commit Guardrails" section in `.github/copilot-instructions.md`. Before committing, you should verify:
+
+1. **Code Compilation**: Code must compile (`dotnet build`)
+2. **Test Execution**: All tests must pass (`dotnet test`)
+3. **Code Quality**: Follow style guidelines
+4. **Security**: No secrets or sensitive data
+5. **Documentation**: Updated if needed
+6. **File Checks**: No temp files or build artifacts
+7. **Commit Message**: Follows semantic commit format
 ---
 
 ## Step 2 Generate Commit Messages using Copilot chat
