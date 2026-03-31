@@ -34,7 +34,7 @@ This course is about **the process of using Copilot for architecture design**, n
 
 ## 📄 Requirements Document
 
-In this folder, you'll find: [requirements.md](./requirements.md)
+In the **parent lab folder** (one level up from `extra/`), you'll find: [requirements.md](../requirements.md)
 
 It contains:
 - **4 user stories** (owner books, vet sees schedule, etc.)
@@ -66,22 +66,23 @@ Create a folder to save outputs from each exercise:
 
 ```
 01. Architecture and Design with MCP/
-├── requirements.md (↑ you already have this)
-├── 00-setup.md (← you're reading this)
-├── 01-understand-requirements.md (← next)
-├── 02-design-architecture.md
-├── 03-technology-selection.md
-├── outputs/
-│   ├── exercise-1-summary.md
-│   ├── exercise-2-architecture.md
-│   └── exercise-3-tech-decisions.md
+├── requirements.md (↑ lab root)
+├── extra/
+│   ├── 00-setup.md (← you're reading this)
+│   ├── 01-understand-requirements.md (← next)
+│   ├── 02-design-architecture.md
+│   ├── 03-technology-selection.md
+│   └── outputs/
+│       ├── exercise-1-summary.md
+│       ├── exercise-2-architecture.md
+│       └── exercise-3-tech-decisions.md
 ```
 
 ---
 
 ## ✅ Checklist Before Starting
 
-- [ ] You've read [requirements.md](./requirements.md)
+- [ ] You've read [requirements.md](../requirements.md)
 - [ ] You understand we're building a **simple appointment booking system**
 - [ ] You know the main features: search slots, book, confirm, view schedule
 - [ ] Copilot chat is open and ready

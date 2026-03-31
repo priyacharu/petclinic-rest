@@ -117,7 +117,7 @@ You are a [ROLE]. When [TASK]:
 Just ask normally! MCP will read the instruction file:
 
 ```
-Analyze the requirements in requirements.md
+Analyze the requirements in `copilot-codelabs/01. Architecture and Design with MCP/requirements.md` (lab root)
 ```
 
 Copilot will follow your instruction file automatically! ✨
@@ -171,7 +171,7 @@ Copilot: "Let me redo it..."
 ```
 [Create .copilot-instructions.md once with your preferences]
 
-You: "Analyze requirements.md"
+You: "Analyze copilot-codelabs/01. Architecture and Design with MCP/requirements.md"
 Copilot: [Automatically follows instruction file, provides bullets]
 [Done instantly, correctly formatted]
 ```

@@ -1,150 +1,53 @@
-# Architecture & Design with Copilot - Training Course
+# Architecture and Design with MCP — Simplified lab
 
-## 📚 Overview
+Use **GitHub Copilot** (and MCP when relevant) to practice architecture thinking on the **Pet Appointment Booking** use case.
 
-This course teaches how to use **GitHub Copilot for architecture and system design**. Through 4 practical exercises, you'll learn:
+## How to run this lab (choose one)
 
-1. **How to use Copilot to analyze and understand requirements**
-2. **How to generate system architecture from user stories**
-3. **How to make technology choices based on design constraints**
-4. **How to integrate real data sources (like JIRA) using MCP**
+1. **Guided path** — Open [01-build-impact-map.md](./01-build-impact-map.md), then [02-draft-high-level-design.md](./02-draft-high-level-design.md). Each file walks through goals, inputs, and deliverables.
+2. **Direct prompts** — Open the [resource prompts](./resources/), copy **everything below the horizontal rule (`---`)**, paste into **Copilot Chat** in one go. You can **attach** input files with `@` so Copilot reads them from the workspace.
+3. **Repository prompt commands (recommended for a tidy `docs/` layout)** — In Copilot Chat, run the slash commands defined in [`.github/prompts/`](../../.github/prompts/):
+   - **`/create-impact-map`** — Pass the path to your requirements file, e.g. **`docs/requirements.md`**. Copilot creates a **subfolder under `docs/`** (name derived from the document title, e.g. `docs/appointment-booking-system/`) and saves **`impact-map.md`** there. All later artifacts for that topic live in that same folder.
+   - **`/create-high-level-design`** — Pass the path to **`impact-map.md`** from step 1 (e.g. **`docs/appointment-booking-system/impact-map.md`**). Add the requirements path if the command asks for a second argument (e.g. **`docs/requirements.md`**). Copilot saves **`high-level-design.md`** in **the same folder as the impact map** (still under `docs/`). The [bundled prompt](../../.github/prompts/create-high-level-design.prompt.md) may also create **`adrs.md`** and reference skills like **`/adr`** and **`/mermaid`** in that folder.
 
-## 🎯 Use Case: Pet Appointment Booking System
+Paths **1** and **2** often save `impact-map.md` / `high-level-design.md` next to this README unless you choose otherwise. Path **3** keeps outputs under **`docs/<topic>/`** by design.
 
-We'll use a **simple, focused use case** throughout all exercises:
+## Flow
 
-> **Problem**: PetClinic needs an online system where pet owners can book appointments with vets.
-> 
-> **Scope**: Just the appointment booking flow, nothing complex
-> - Owner searches for available slots
-> - Owner books an appointment
-> - System confirms the appointment
+| Step | Input | Output (typical) |
+|------|--------|------------------|
+| **1 — Impact map** | `docs/requirements.md` (or [`requirements.md`](./requirements.md) in this lab, if you use it) | **`docs/<topic>/impact-map.md`** when using `/create-impact-map`; otherwise **`impact-map.md`** where you save it |
+| **2 — HLD** | That **`impact-map.md`** (+ optional requirements) | **`docs/<topic>/high-level-design.md`** (same folder as the impact map when using `/create-high-level-design`); may include **`adrs.md`** |
 
-This is intentionally simple so you can focus on **the process** (how to use Copilot + MCP), not on complex business logic.
+Traceability stays linear: **requirements → impact map → high-level design** (all under `docs/<topic>/` if you use the slash commands).
 
----
+## Exercises and prompts
 
-## 📖 Exercises
+| Step | Guide | Resource prompt | Repo command |
+|------|--------|-----------------|--------------|
+| 1 | [01-build-impact-map.md](./01-build-impact-map.md) | [resources/prompt-impact-map.md](./resources/prompt-impact-map.md) | **`/create-impact-map`** |
+| 2 | [02-draft-high-level-design.md](./02-draft-high-level-design.md) | [resources/prompt-high-level-design.md](./resources/prompt-high-level-design.md) | **`/create-high-level-design`** |
 
-### [Exercise 0: Setup & Context](./00-setup.md)
-**Time: 5 minutes**
-- Understand the use case
-- Prepare sample requirements document
-- Set up your workspace
+Definitions for the commands live under **[`.github/prompts/`](../../.github/prompts/)**.
 
-### [Exercise 1: Understand Requirements](./01-understand-requirements.md)
-**Time: 15 minutes**
-- Analyze a local requirements document
-- Use Copilot to:
-  - Extract key requirements
-  - Identify actors and systems
-  - Get a structured summary
-- **Deliverable**: Summary of requirements in structured format
+## Optional: repository skills (`.github/skills/`)
 
-### [Exercise 2: Generate Architecture from Requirements](./02-design-architecture.md)
-**Time: 20 minutes**
-- Use Copilot to generate system architecture
-- Create architecture diagram
-- Identify key services and data flows
-- **Deliverable**: Architecture diagram (Mermaid/ASCII)
+This repo includes **Copilot-ready skills** under **[`.github/skills/`](../../.github/skills/)**—small playbooks the assistant can follow for consistent outputs:
 
-### [Exercise 3: Technology Decisions Based on Architecture](./03-technology-selection.md)
-**Time: 15 minutes**
-- Use Copilot to evaluate technology options
-- Make decisions on: database, API, deployment
-- Document decisions with justification
-- **Deliverable**: Technology selection document
+- **`adr`** — structure for Architecture Decision Records (the **`/create-high-level-design`** flow may invoke this to build **`adrs.md`**).
+- **`c4-diagrams`** — C4 model diagrams (Context / Container / Component) from your design text.
+- **`mermaid`** — Mermaid diagrams for flows and component relationships.
 
-### [Exercise 4: Read Requirements from JIRA using MCP](./04-read-from-jira-with-mcp.md)
-**Time: 25 minutes**
-- Set up JIRA MCP integration with Copilot
-- Read real requirements directly from JIRA issues
-- Generate architecture based on JIRA data
-- **Deliverable**: Architecture designed from live JIRA requirements
+The simplified lab **does not require** opening those files manually if you use **`/create-high-level-design`**, which already points Copilot at the right skills.
 
----
+## Full course (optional)
 
-## 🎓 Learning Goals
+The original multi-step course (setup, requirements deep-dive, architecture, tech selection, JIRA MCP) lives under **[`extra/`](./extra/)** — start from [`extra/README.md`](./extra/README.md).
 
-By completing this course, you'll understand:
+## Files in this folder
 
-✅ How to use Copilot for requirements analysis
-✅ How to generate architecture diagrams from text
-✅ How to make tech stack decisions systematically
-✅ **How to create instruction files for consistent outputs** ⭐
-✅ The workflow: Requirements → Architecture → Technology
-✅ How to integrate real data sources (JIRA) using MCP
-
----
-
-## 🔄 Course Structure Changes
-
-**Note**: Exercises 1-3 use **local files and instruction files** to teach the fundamentals. Exercise 4 introduces **real MCP integration with JIRA** to show how these techniques apply to live data.
-
-- **Exercises 1-3**: Local analysis + Instruction files for consistent outputs
-- **Exercise 4**: Cloud integration via JIRA MCP + Live data sources
-
----
-
-## 🎯 Key Innovation: Copilot Instruction Files & MCP
-
-**Part 1: Instruction Files (Exercises 1-3)**  
-This course introduces a powerful technique: **Creating instruction files to guide Copilot**.
-
-Instead of repeating yourself, you create `.instructions.md` files that Copilot uses automatically:
-
-- **Exercise 1**: Create `.copilot-instructions.md` for requirements analysis
-- **Exercise 2**: Create `.architecture-instructions.md` for architecture design  
-- **Exercise 3**: Create `.tech-selection-instructions.md` for technology decisions
-
-**Part 2: Real MCP Integration (Exercise 4)**  
-Once you understand instruction files, Exercise 4 shows how to use **Model Context Protocol (MCP)** to connect real data sources like JIRA:
-
-- **Exercise 4**: Connect JIRA via MCP to read live requirements
-- Generate architecture based on real JIRA issues
-- Maintain traceability from requirements → architecture → code
-
-**Benefits:**
-- ✅ Consistent outputs every time
-- ✅ Your preferences are remembered
-- ✅ Team can reuse your instructions
-- ✅ Works with external systems (JIRA, Confluence, etc.)
-- ✅ Better formatting, structure, completeness
-
----
-
-## 🚀 Getting Started
-
-1. **[Recommended] Read the guide** → [How Instruction Files Work](./INSTRUCTION-FILES-GUIDE.md) ⭐
-2. Start with [Exercise 0: Setup](./00-setup.md)
-3. Follow exercises in order (1, 2, 3)
-4. Each exercise builds on the previous one
-5. Total time: ~55 minutes
-
----
-
-## 📖 Course Files
-
-- **README.md** ← you're here
-- [INSTRUCTION-FILES-GUIDE.md](./INSTRUCTION-FILES-GUIDE.md) - **How to use Copilot instruction files** ⭐
-- [requirements.md](./requirements.md) - Sample requirements document
-- [00-setup.md](./00-setup.md) - Preparation (5 min)
-- [01-understand-requirements.md](./01-understand-requirements.md) - Exercise 1 (15 min) 
-- [02-design-architecture.md](./02-design-architecture.md) - Exercise 2 (20 min)
-- [03-technology-selection.md](./03-technology-selection.md) - Exercise 3 (15 min)
-
----
-
-## 💡 Key Principle
-
-Each exercise demonstrates:
-- **What you ask Copilot** (the prompt)
-- **What you should get** (expected output)
-- **How to create instruction files** (to automate your preferences)
-- **How to validate** (what makes it good)
-
-The use case is simple intentionally—focus on the **process**, not the complexity!
-
----
-
-**Ready?** Start with [Exercise 0: Setup & Context](./00-setup.md) →
+- **`requirements.md`** — sample requirements (if present here); classes often use **`docs/requirements.md`** with **`/create-impact-map`**.  
+- **`01-build-impact-map.md`**, **`02-draft-high-level-design.md`** — exercise instructions  
+- **`resources/`** — plain-text prompts you can paste into chat  
+- **`extra/`** — extended exercises and guides  
+- **`docs/<topic>/`** (repo root) — when using slash commands, your **impact map**, **HLD**, and related files are written here (see `.gitignore`: usually only **`docs/requirements.md`** is committed unless your instructor says otherwise).

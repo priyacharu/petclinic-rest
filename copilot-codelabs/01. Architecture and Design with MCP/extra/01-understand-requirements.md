@@ -12,7 +12,7 @@ Use Copilot to analyze a requirements document and extract key information.
 
 ## 📖 Context
 
-You have a requirements document ([requirements.md](./requirements.md)) that describes the appointment booking system. Now you need to **understand and summarize** it.
+You have a requirements document ([requirements.md](../requirements.md)) in the lab folder that describes the appointment booking system. Now you need to **understand and summarize** it.
 
 **What you'll do:**
 1. Ask Copilot to read the requirements file from your workspace
@@ -69,7 +69,7 @@ Now, when you ask Copilot questions, it will follow these instructions automatic
 ```
 Using my .copilot-instructions.md guidelines:
 
-Read the file requirements.md in this folder and provide:
+Read the file `requirements.md` in the parent lab folder (`../requirements.md`) and provide:
 
 1. **System Purpose**: What is the system trying to solve?
 2. **User Actors**: Who are the users? (owner, vet, admin, etc.)
