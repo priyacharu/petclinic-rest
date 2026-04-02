@@ -56,6 +56,3 @@ petclinic.db
 .env
 .env.local
 
-# Local documentation: only docs/requirements.md is tracked; other outputs stay local
-/docs/*
-!/docs/requirements.md
