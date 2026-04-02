@@ -1,22 +1,20 @@
 ---
-title: Create PR (auto-generate title & description)
-description: |
-  Generate a complete GitHub Pull Request title, description, labels, reviewers and recommended `gh` commands
-  from the current branch, commit messages, and changed files. Useful for auto-filling PR templates and
-  producing a ready-to-run `gh pr create` command or copyable PR body.
-inputs:
-  - name: branch
-    required: false
-    description: Branch to create PR from (defaults to current git branch)
-  - name: base
-    required: false
-    description: Target branch for PR (default: `main`)
-  - name: remote
-    required: false
-    description: Git remote to push to (default: `origin`)
-  - name: open
-    required: false
-    description: If true, include exact `gh` command to open PR (default: false)
+description: >
+  Generate a complete GitHub Pull Request title, description, labels, reviewers and executable git/gh commands
+  from the current branch, commit messages, and changed files. When `open=true`, create
+  the PR automatically and only push if the branch is not already up to date on remote.
+agent: "agent"
+---
+
+## Parameters
+
+| Name | Required | Default | Description |
+|------|----------|---------|-------------|
+| `branch` | No | current git branch | Branch to create PR from |
+| `base` | No | `main` | Target branch for PR |
+| `remote` | No | `origin` | Git remote to push to |
+| `open` | No | `false` | If `true`, execute PR creation and conditionally push only when needed |
+
 ---
 
 Task: Automate PR creation
@@ -41,6 +39,13 @@ Instructions for the agent using this prompt:
    - If API controllers or DTOs changed → add `api` label and suggest `@team-api` reviewer
    - If only docs changed → add `docs` label
 
+5. If `open=true`:
+  - Check whether local `branch` is ahead of `remote/branch`.
+  - Execute `git push <remote> <branch>` only if local has commits not on remote.
+  - If branch is already up to date on remote, skip push and continue.
+  - Execute `gh pr create --title "<Title>" --body-file <temp-file> --base <base> --head <branch>`.
+  - If `gh` is unavailable or command fails, clearly report the error and still output the exact commands.
+
 Output format (exact):
 ```
 Title: <one-line title>
@@ -50,7 +55,7 @@ Labels: label1,label2
 Reviewers: @handle1,@handle2
 Commands:
 git push <remote> <branch>
-gh pr create --title "<Title>" --body - --base <base>  # (or include suggested command with --body-file)
+gh pr create --title "<Title>" --body-file <temp-file> --base <base> --head <branch>
 ```
 
 Examples (invocations):
@@ -58,8 +63,9 @@ Examples (invocations):
 - `Create PR branch=feat/api-pagination base=main open=true`
 
 Notes for users:
-- The agent will not run `git` or `gh` commands automatically unless explicitly allowed; it will output recommended commands.
-- Review and edit the generated PR body before running any `gh` command.
+- If `open=true`, the agent should run `gh pr create` and push only when local branch is ahead of remote.
+- If `open=false`, the agent should only output the commands without executing them.
+- If command execution fails, the agent must include the failure reason and next-step commands to run manually.
 
 Helpful tips for best results:
 - Use semantic commit messages (feat/fix/docs) and descriptive branch names to improve auto-detection.
