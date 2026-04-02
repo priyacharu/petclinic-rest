@@ -121,28 +121,30 @@ Review the "Pre-Commit Guardrails" section in `.github/copilot-instructions.md`.
 
 1. **Make code changes to support given requirement**:
 
-- Ask Copilot to add code and test cases to support given requirement "return 200 with empty array instead of 404 for empty owners list"
+- Ask Copilot to "add code and test cases to support #file:filter-vets-by-speciality.md requirement"
 - Analyse code changes and tweak them if necessary
 
 
 2. **Generate code-commit message based on changed files**
 
-- Ask Copilot to generate code-commit message based on changed files. 
+- Ask Copilot to "generate code-commit message based on changed files". 
 - Analyse commit message and tweak it if required
 
 ```
 #Sample commit message
 
-fix(api): return 200 with empty array for empty owners list
+feat(vets): add specialty filter to GET /api/vets endpoint
 
-Ensure OwnersController.GetOwners() returns 200 OK with an empty array instead of 404 when no owners exist.
+Add optional `specialty` query parameter to VetsController.GetVets()
+to allow clients to filter vets by specialty name.
 
-Map owner entities to DTOs and return Ok(ownerDtos) even when list is empty.
-Add unit test OwnerControllerTests.GetOwners_EmptyDatabase_ReturnsOkWithEmptyArray to verify status 200 and an empty array.
+- Filter is case-insensitive (e.g. "Radiology" matches "radiology")
+- Empty or whitespace-only values are treated as if parameter was omitted
+- Returns 200 OK with empty array when no vets match the filter
+
 Files:
-
-OwnersController.cs (behavior change)
-UnitTest1.cs (new test)
+- Controllers/VetsController.cs (behavior change)
+- tests/unit/PetClinicRest.Tests/Controllers/VetsControllerTests.cs (new test class, 6 tests)
 ```
 
 ---
