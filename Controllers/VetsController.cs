@@ -21,17 +21,23 @@ public class VetsController : ControllerBase
     }
 
     /// <summary>
-    /// Get all veterinarians
+    /// Get all veterinarians, optionally filtered by specialty name
     /// </summary>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<VetDto>>> GetVets()
+    public async Task<ActionResult<IEnumerable<VetDto>>> GetVets([FromQuery] string? specialty)
     {
-        var vets = await _context.Vets
+        var query = _context.Vets
             .Include(v => v.VetSpecialties)
             .ThenInclude(vs => vs.Specialty)
-            .AsNoTracking()
-            .ToListAsync();
+            .AsNoTracking();
 
+        if (!string.IsNullOrWhiteSpace(specialty))
+        {
+            query = query.Where(v => v.VetSpecialties.Any(vs =>
+                vs.Specialty.Name.ToLower() == specialty.ToLower()));
+        }
+
+        var vets = await query.ToListAsync();
         return Ok(_mapper.Map<IEnumerable<VetDto>>(vets));
     }
 
