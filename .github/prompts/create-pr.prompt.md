@@ -1,22 +1,20 @@
 ---
-title: Create PR (auto-generate title & description)
-description: |
+description: >
   Generate a complete GitHub Pull Request title, description, labels, reviewers and executable git/gh commands
   from the current branch, commit messages, and changed files. When `open=true`, create
   the PR automatically and only push if the branch is not already up to date on remote.
-inputs:
-  - name: branch
-    required: false
-    description: Branch to create PR from (defaults to current git branch)
-  - name: base
-    required: false
-    description: Target branch for PR (default: `main`)
-  - name: remote
-    required: false
-    description: Git remote to push to (default: `origin`)
-  - name: open
-    required: false
-    description: If true, execute PR creation and conditionally push only when needed (default: false)
+agent: "agent"
+---
+
+## Parameters
+
+| Name | Required | Default | Description |
+|------|----------|---------|-------------|
+| `branch` | No | current git branch | Branch to create PR from |
+| `base` | No | `main` | Target branch for PR |
+| `remote` | No | `origin` | Git remote to push to |
+| `open` | No | `false` | If `true`, execute PR creation and conditionally push only when needed |
+
 ---
 
 Task: Automate PR creation

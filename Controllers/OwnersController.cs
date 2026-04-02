@@ -161,12 +161,12 @@ public class OwnersController : ControllerBase
             return NotFound();
         }
 
-        _mapper.Map(petDto, pet);
+        pet.Name = petDto.Name;
+        pet.BirthDate = petDto.BirthDate;
+        pet.PetTypeId = petDto.PetTypeId;
         pet.UpdatedAt = DateTime.UtcNow;
 
-        _context.Pets.Update(pet);
         await _context.SaveChangesAsync();
-
         return NoContent();
     }
 }
